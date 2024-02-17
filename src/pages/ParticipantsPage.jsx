@@ -24,11 +24,18 @@ const ParticipantsPage = () => {
   }, []);
 
   const addParticipant = () => {
-    const db = getDatabase(app);
-    const participantsRef = ref(db, 'participants');
-    push(participantsRef, { name: participantName });
-    setParticipantName('');
+    // Vérifier si le nom du participant comporte au moins 3 caractères
+    if (participantName.length >= 3) {
+      const db = getDatabase(app);
+      const participantsRef = ref(db, 'participants');
+      push(participantsRef, { name: participantName });
+      setParticipantName(''); // Réinitialiser le champ après l'ajout
+    } else {
+      // Afficher une alerte ou un message d'erreur si le nom est trop court
+      alert("Le nom du participant doit comporter au moins 3 caractères.");
+    }
   };
+  
 
   return (
     <Box p={5}>
