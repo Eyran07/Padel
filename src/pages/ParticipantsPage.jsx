@@ -55,6 +55,14 @@ const ParticipantsPage = () => {
       // Utiliser alert pour montrer le message
       alert("Bonne chance le tentateur");
     }
+    else if (name.trim().toLowerCase() === "ben bis") {
+        // Utiliser alert pour montrer le message
+        alert("Jespere que tu vas pas etre avec ton pere");
+      }
+      else if (name.trim().toLowerCase() === "steve mar") {
+        // Utiliser alert pour montrer le message
+        alert("Steve tu passeras pas les quarts de sur");
+      }
   };
 
   return (
