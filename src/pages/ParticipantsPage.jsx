@@ -51,7 +51,7 @@ const ParticipantsPage = () => {
     } else if (name.trim().toLowerCase() === "franck apel") {
       // Utiliser alert pour montrer le message
       alert("Le franck il va pas passer les quarts !!");
-    } else if (name.trim().toLowerCase() === "Sacha mel") {
+    } else if (name.trim().toLowerCase() === "sacha mel") {
       // Utiliser alert pour montrer le message
       alert("Bonne chance le tentateur");
     }
