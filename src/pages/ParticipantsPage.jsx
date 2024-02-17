@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Button, Input, VStack, Text } from '@chakra-ui/react';
-import { getDatabase, ref, push, onValue } from 'firebase/database';
-import { app, database } from '../firebase';
+import React, { useState, useEffect } from "react";
+import { Box, Button, Input, VStack, Text } from "@chakra-ui/react";
+import { getDatabase, ref, push, onValue } from "firebase/database";
+import { app, database } from "../firebase";
 
 const ParticipantsPage = () => {
-  const [participantName, setParticipantName] = useState('');
+  const [participantName, setParticipantName] = useState("");
   const [participants, setParticipants] = useState([]);
 
   useEffect(() => {
     const db = getDatabase(app);
-    const participantsRef = ref(db, 'participants');
+    const participantsRef = ref(db, "participants");
     onValue(participantsRef, (snapshot) => {
       const participantsData = snapshot.val();
       const loadedParticipants = [];
@@ -24,18 +24,38 @@ const ParticipantsPage = () => {
   }, []);
 
   const addParticipant = () => {
-    // Vérifier si le nom du participant comporte au moins 3 caractères
     if (participantName.length >= 3) {
       const db = getDatabase(app);
-      const participantsRef = ref(db, 'participants');
+      const participantsRef = ref(db, "participants");
       push(participantsRef, { name: participantName });
-      setParticipantName(''); // Réinitialiser le champ après l'ajout
+      setParticipantName("");
     } else {
-      // Afficher une alerte ou un message d'erreur si le nom est trop court
       alert("Le nom du participant doit comporter au moins 3 caractères.");
     }
   };
-  
+
+  const handleChange = (e) => {
+    const name = e.target.value;
+    setParticipantName(name);
+
+    // Vérifier si le nom est "David Bismuth"
+    if (name.trim().toLowerCase() === "david bis") {
+      // Utiliser alert pour montrer le message
+      alert("Bonne chance la Bismuth tu vas perdre !!");
+    } else if (name.trim().toLowerCase() === "idan") {
+      // Utiliser alert pour montrer le message
+      alert("Marseille on t'enculle");
+    } else if (name.trim().toLowerCase() === "jeremie ben") {
+      // Utiliser alert pour montrer le message
+      alert("Bonne chance le Bencho tu vas perdre !!");
+    }
+    else if (name.trim().toLowerCase() === "franck apel") {
+        // Utiliser alert pour montrer le message
+        alert("Le franck il va pas passer les quarts !!");
+      }
+    
+    
+  };
 
   return (
     <Box p={5}>
@@ -43,7 +63,7 @@ const ParticipantsPage = () => {
         <Input
           placeholder="Nom du participant"
           value={participantName}
-          onChange={(e) => setParticipantName(e.target.value)}
+          onChange={handleChange}
         />
         <Button onClick={addParticipant}>Ajouter Participant</Button>
         {participants.map((participant) => (
