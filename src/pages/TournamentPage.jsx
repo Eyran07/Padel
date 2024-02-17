@@ -1,45 +1,43 @@
-// src/pages/TournamentPage.js
-import React, { useState } from 'react';
-import { Box, Heading, Button, Input, useToast } from '@chakra-ui/react';
+import React, { useState, useEffect } from 'react';
+import { database } from '../firebase';
+import { ref, onValue, push } from 'firebase/database';
+import { Button, VStack, Text } from '@chakra-ui/react';
 
 const TournamentPage = () => {
-  const [code, setCode] = useState('');
-  const toast = useToast();
+  const [teams, setTeams] = useState([]);
 
-  const handleGenerateTeams = () => {
-    if (code === "baba") {
-      // Insérez ici la logique pour générer les équipes
-      toast({
-        title: "Équipes générées.",
-        description: "Les équipes ont été générées avec succès.",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-      });
-    } else {
-      toast({
-        title: "Accès refusé.",
-        description: "Le code administrateur est incorrect.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      });
-    }
+  useEffect(() => {
+    const teamsRef = ref(database, 'teams');
+    onValue(teamsRef, (snapshot) => {
+      const teamsData = snapshot.val();
+      const loadedTeams = [];
+      for (const key in teamsData) {
+        loadedTeams.push({
+          id: key,
+          ...teamsData[key],
+        });
+      }
+      setTeams(loadedTeams);
+    });
+
+    // N'oubliez pas de détacher l'écouteur d'événements pour éviter les fuites de mémoire
+    return () => onValue(teamsRef, () => {});
+  }, []);
+
+  const generateTeam = () => {
+    // Exemple de fonction pour générer une équipe
+    // Assurez-vous de mettre à jour cette logique selon votre cas d'usage
+    const newTeam = { members: ["Membre 1", "Membre 2"] }; // Exemple statique
+    push(ref(database, 'teams'), newTeam);
   };
 
   return (
-    <Box p={5}>
-      <Heading mb={5}>Bracket du Tournoi</Heading>
-      <Input
-        placeholder="Entrez le code administrateur"
-        value={code}
-        onChange={(e) => setCode(e.target.value)}
-        mb={3}
-      />
-      <Button colorScheme="blue" onClick={handleGenerateTeams}>
-        Générer les Équipes
-      </Button>
-    </Box>
+    <VStack spacing={4}>
+      <Button onClick={generateTeam}>Générer une Équipe</Button>
+      {teams.map((team) => (
+        <Text key={team.id}>Équipe: {team.members.join(' et ')}</Text>
+      ))}
+    </VStack>
   );
 };
 
