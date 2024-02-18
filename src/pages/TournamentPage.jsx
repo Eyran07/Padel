@@ -26,38 +26,6 @@ const TournamentPage = () => {
   const [quarterFinals, setQuarterFinals] = useState([]);
 
   useEffect(() => {
-    const teamsRef = ref(database, "teams");
-    onValue(teamsRef, (snapshot) => {
-      const loadedTeams = [];
-      snapshot.forEach((childSnapshot) => {
-        const teamData = childSnapshot.val();
-        loadedTeams.push({
-          id: childSnapshot.key,
-          members: Object.values(teamData.members)
-            .map((member) => member.name)
-            .join(" et "),
-        });
-      });
-      setTeams(loadedTeams);
-    });
-  }, []);
-
-  useEffect(() => {
-    const participantsRef = ref(database, "participants");
-    onValue(participantsRef, (snapshot) => {
-      const loadedParticipants = [];
-      snapshot.forEach((childSnapshot) => {
-        loadedParticipants.push({
-          id: childSnapshot.key,
-          ...childSnapshot.val(),
-        });
-      });
-      setParticipants(loadedParticipants);
-      console.log("Participants chargés :", loadedParticipants); // Vérification
-    });
-  }, []);
-
-  useEffect(() => {
     const quarterFinalsRef = ref(database, "quarterFinals");
     onValue(quarterFinalsRef, (snapshot) => {
       const loadedQuarterFinals = [];

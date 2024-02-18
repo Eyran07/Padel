@@ -24,6 +24,23 @@ const ParticipantsPage = () => {
     });
   }, []);
 
+  useEffect(() => {
+    const teamsRef = ref(database, "teams");
+    onValue(teamsRef, (snapshot) => {
+      const loadedTeams = [];
+      snapshot.forEach((childSnapshot) => {
+        const teamData = childSnapshot.val();
+        loadedTeams.push({
+          id: childSnapshot.key,
+          members: Object.values(teamData.members)
+            .map((member) => member.name)
+            .join(" et "),
+        });
+      });
+      setTeams(loadedTeams);
+    });
+  }, []);
+
   const addParticipant = () => {
     if (participantName.length >= 3) {
       const db = getDatabase(app);
@@ -61,32 +78,30 @@ const ParticipantsPage = () => {
     } else if (name.trim().toLowerCase() === "steve mar") {
       // Utiliser alert pour montrer le message
       alert("Steve tu passeras pas les quarts de sur");
+    } else if (name.trim().toLowerCase() === "rudy mar") {
+      // Utiliser alert pour montrer le message
+      alert("Rudy tu vas pas passer les quarts");
+    } else if (name.trim().toLowerCase() === "jeremy mar") {
+      // Utiliser alert pour montrer le message
+      alert("J'espere que tu seras pas avec ton pere");
+    } else if (name.trim().toLowerCase() === "david bocc") {
+      // Utiliser alert pour montrer le message
+      alert("Tu vas etre avec le bismuth cest sur");
     }
-    else if (name.trim().toLowerCase() === "rudy mar") {
-        // Utiliser alert pour montrer le message
-        alert("Rudy tu vas pas passer les quarts");
-      }
-      else if (name.trim().toLowerCase() === "jeremy mar") {
-        // Utiliser alert pour montrer le message
-        alert("J'espere que tu seras pas avec ton pere");
-      }
-      else if (name.trim().toLowerCase() === "david bocc") {
-        // Utiliser alert pour montrer le message
-        alert("Tu vas etre avec le bismuth cest sur");
-      }
-      
   };
 
   const generateTeam = () => {
     // Demander le mot de passe à l'utilisateur
-    const password = prompt("Veuillez entrer le mot de passe pour générer une équipe :");
-  
+    const password = prompt(
+      "Veuillez entrer le mot de passe pour générer une équipe :"
+    );
+
     // Vérifier si le mot de passe est correct
     if (password === "baba") {
       if (participants.length >= 2) {
         let remainingParticipants = [...participants];
         let newTeam = [];
-  
+
         for (let i = 0; i < 2; i++) {
           const randomIndex = Math.floor(
             Math.random() * remainingParticipants.length
@@ -99,7 +114,7 @@ const ParticipantsPage = () => {
             console.error("Participant sans nom trouvé:", participant);
           }
         }
-  
+
         if (newTeam.length === 2) {
           const teamsRef = ref(database, "teams");
           push(teamsRef, {
@@ -108,10 +123,12 @@ const ParticipantsPage = () => {
               name: participant.name,
             })),
           });
-  
+
           setParticipants(remainingParticipants);
         } else {
-          alert("Erreur lors de la formation de l'équipe. Participants manquants ou invalides.");
+          alert(
+            "Erreur lors de la formation de l'équipe. Participants manquants ou invalides."
+          );
         }
       } else {
         alert("Pas assez de participants pour former une nouvelle équipe.");
@@ -121,16 +138,17 @@ const ParticipantsPage = () => {
       alert("Mot de passe incorrect.");
     }
   };
-  
 
   return (
     <Box p={5}>
-        <Box mb={'20px'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
-            <Heading>
-                  Tournoi Padel Dimanche 25 Fevrier
-            </Heading>
-          
-        </Box>
+      <Box
+        mb={"20px"}
+        display={"flex"}
+        justifyContent={"center"}
+        alignItems={"center"}
+      >
+        <Heading>Tournoi Padel Dimanche 25 Fevrier</Heading>
+      </Box>
       <VStack display={"flex"} spacing={4}>
         <Input
           placeholder="Nom du participant"
