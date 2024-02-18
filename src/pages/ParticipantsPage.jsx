@@ -42,7 +42,7 @@ const ParticipantsPage = () => {
     // Vérifier si le nom est "David Bismuth"
     if (name.trim().toLowerCase() === "david bis") {
       // Utiliser alert pour montrer le message
-      alert("Bonne chance la Bismuth tu vas perdre !!");
+      alert("Tu vas tomber sur boccara tu vas moins faire le  malin !!");
     } else if (name.trim().toLowerCase() === "idan") {
       // Utiliser alert pour montrer le message
       alert("Marseille on t'enculle");
@@ -62,6 +62,19 @@ const ParticipantsPage = () => {
       // Utiliser alert pour montrer le message
       alert("Steve tu passeras pas les quarts de sur");
     }
+    else if (name.trim().toLowerCase() === "rudy mar") {
+        // Utiliser alert pour montrer le message
+        alert("Rudy tu vas pas passer les quarts");
+      }
+      else if (name.trim().toLowerCase() === "jeremy mar") {
+        // Utiliser alert pour montrer le message
+        alert("J'espere que tu seras pas avec ton pere");
+      }
+      else if (name.trim().toLowerCase() === "david bocc") {
+        // Utiliser alert pour montrer le message
+        alert("Tu vas etre avec le bismuth cest sur");
+      }
+      
   };
 
   const generateTeam = () => {
