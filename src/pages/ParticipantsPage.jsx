@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Box, Button, Input, VStack, Text, Heading } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Input,
+  VStack,
+  Text,
+  Heading,
+  Link,
+  useToast,
+} from "@chakra-ui/react";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { getDatabase, ref, push, onValue } from "firebase/database";
 import { app, database } from "../firebase";
 
@@ -139,17 +149,37 @@ const ParticipantsPage = () => {
     }
   };
 
+  const toast = useToast();
+
+  const handleOpenWaze = () => {
+    // Vérifier si l'application Waze est installée
+    // Cela ne fonctionne que sur mobile, et pas sur toutes les plateformes
+    const wazeUrl = "https://waze.com/ul?ll=32.162413,34.844675&navigate=yes";
+    window.open(wazeUrl, "_blank");
+  };
+
+  const showToast = () => {
+    toast({
+      title: "Adresse copiée dans le presse-papier",
+      description:
+        "Vous pouvez maintenant la coller dans votre application de navigation.",
+      status: "info",
+      duration: 3000,
+      isClosable: true,
+    });
+  };
+
+  const handleCopyAddress = () => {
+    navigator.clipboard.writeText("Ramat Yam St 100, Herzliya");
+    showToast();
+  };
+
   return (
-    <Box p={5}>
-      <Box
-        mb={"20px"}
-        display={"flex"}
-        justifyContent={"center"}
-        alignItems={"center"}
-      >
-        <Heading>Tournoi Padel Dimanche 10 Mars</Heading>
-      </Box>
-      <VStack display={"flex"} spacing={4}>
+    <Box p={5} bg="white" display={'flex'} flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>
+      <Heading size="lg" color="gray.600">Tournoi Padel Dimanche 10 Mars</Heading>
+      <Text fontSize="md" color="gray.500" mb={6}>Horaire: 9h00 - 18h00</Text>
+      
+      <VStack spacing={4}>
         <Input
           placeholder="Nom du participant"
           value={participantName}
@@ -169,6 +199,12 @@ const ParticipantsPage = () => {
         ) : (
           <Text>Aucune équipe formée</Text>
         )}
+       <Button colorScheme="gray" onClick={handleOpenWaze}>
+          Ouvrir dans Waze
+        </Button>
+        <Button colorScheme="gray" variant="outline" onClick={handleCopyAddress}>
+          Copier l'adresse pour GPS
+        </Button>
       </VStack>
     </Box>
   );
