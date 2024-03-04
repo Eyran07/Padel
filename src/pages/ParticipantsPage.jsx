@@ -152,11 +152,11 @@ const ParticipantsPage = () => {
   const toast = useToast();
 
   const handleOpenWaze = () => {
-    // Vérifier si l'application Waze est installée
-    // Cela ne fonctionne que sur mobile, et pas sur toutes les plateformes
-    const wazeUrl = "https://waze.com/ul?ll=32.162413,34.844675&navigate=yes";
+    // Utiliser les coordonnées fournies pour l'URL de Waze
+    const wazeUrl = "https://waze.com/ul?ll=32.16902844,34.79988098&navigate=yes";
     window.open(wazeUrl, "_blank");
-  };
+};
+
 
   const showToast = () => {
     toast({
@@ -170,7 +170,7 @@ const ParticipantsPage = () => {
   };
 
   const handleCopyAddress = () => {
-    navigator.clipboard.writeText("Ramat Yam St 100, Herzliya");
+    navigator.clipboard.writeText("Ramat Yam Street 100, Herzliya");
     showToast();
   };
 
