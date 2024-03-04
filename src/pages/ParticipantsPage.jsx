@@ -178,7 +178,7 @@ const ParticipantsPage = () => {
     <Box p={5} bg="white" display={'flex'} flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>
       <Heading size="lg" color="gray.600">Tournoi Padel Dimanche 10 Mars</Heading>
       <Text fontSize="md" color="gray.500" mb={6}>Horaire: 16h00 - 19h00</Text>
-        <Button colorScheme="gray" onClick={handleOpenWaze}>
+        <Button colorScheme="gray" mb={6} onClick={handleOpenWaze}>
           Ouvrir dans Waze
         </Button>
       <VStack spacing={4}>
