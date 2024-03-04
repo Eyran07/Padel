@@ -147,7 +147,7 @@ const ParticipantsPage = () => {
         justifyContent={"center"}
         alignItems={"center"}
       >
-        <Heading>Tournoi Padel Dimanche 25 Fevrier</Heading>
+        <Heading>Tournoi Padel Dimanche 10 Mars</Heading>
       </Box>
       <VStack display={"flex"} spacing={4}>
         <Input
