@@ -177,8 +177,10 @@ const ParticipantsPage = () => {
   return (
     <Box p={5} bg="white" display={'flex'} flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>
       <Heading size="lg" color="gray.600">Tournoi Padel Dimanche 10 Mars</Heading>
-      <Text fontSize="md" color="gray.500" mb={6}>Horaire: 9h00 - 18h00</Text>
-      
+      <Text fontSize="md" color="gray.500" mb={6}>Horaire: 16h00 - 19h00</Text>
+        <Button colorScheme="gray" onClick={handleOpenWaze}>
+          Ouvrir dans Waze
+        </Button>
       <VStack spacing={4}>
         <Input
           placeholder="Nom du participant"
@@ -199,9 +201,6 @@ const ParticipantsPage = () => {
         ) : (
           <Text>Aucune équipe formée</Text>
         )}
-       <Button colorScheme="gray" onClick={handleOpenWaze}>
-          Ouvrir dans Waze
-        </Button>
         <Button colorScheme="gray" variant="outline" onClick={handleCopyAddress}>
           Copier l'adresse pour GPS
         </Button>
